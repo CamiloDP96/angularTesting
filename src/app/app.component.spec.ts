@@ -1,13 +1,23 @@
-import { TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { By } from '@angular/platform-browser';
 
 describe('AppComponent', () => {
+  let component:AppComponent;
+  let fixture: ComponentFixture<AppComponent>;
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [
         AppComponent
       ],
     }).compileComponents();
+  });
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(AppComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
   });
 
   it('should create the app', () => {
@@ -22,10 +32,9 @@ describe('AppComponent', () => {
     expect(app.title).toEqual('greetings');
   });
 
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('greetings app is running!');
+  it('should have default message', () => {
+    const debugElement = fixture.debugElement.query(By.css('.mensaje'));
+    const mensajeElement = debugElement.nativeElement;
+    expect(mensajeElement.textContent).toContain('Valor por defecto'); // Ajusta este valor según el mensaje por defecto esperado
   });
 });
